@@ -11,6 +11,7 @@ import (
 )
 
 var cfgFile string
+var config map[string]interface{}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -43,7 +44,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.haumea.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "config.yml", "config file (default is $HOME/.haumea.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -74,4 +75,5 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+	config = viper.AllSettings()
 }

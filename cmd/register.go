@@ -16,8 +16,13 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
+	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("register called")
+		server := config[args[0]].(map[string]interface{})[args[1]]
+		targetGroupArn := server.(map[string]interface{})["target_group_arn"]
+		targets := server.(map[string]interface{})["targets"]
+		fmt.Println(targetGroupArn)
+		fmt.Println(targets)
 	},
 }
 
