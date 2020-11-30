@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/shuheitakada/haumea/elbv2"
 	"github.com/spf13/cobra"
 )
 
@@ -21,8 +20,8 @@ to quickly create a Cobra application.`,
 		server := config[args[0]].(map[string]interface{})[args[1]]
 		targetGroupArn := server.(map[string]interface{})["target_group_arn"]
 		targets := server.(map[string]interface{})["targets"]
-		fmt.Println(targetGroupArn)
-		fmt.Println(targets)
+		client := elbv2.NewClient(role)
+		client.RegisterTargets(targetGroupArn.(string), targets.([]interface{}))
 	},
 }
 
