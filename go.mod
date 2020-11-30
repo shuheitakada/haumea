@@ -3,6 +3,7 @@ module github.com/shuheitakada/haumea
 go 1.15
 
 require (
+	github.com/aws/aws-sdk-go v1.35.35
 	github.com/k0kubun/pp v3.0.1+incompatible
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
