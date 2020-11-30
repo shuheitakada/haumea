@@ -10,8 +10,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-var config map[string]interface{}
+var (
+	cfgFile string
+	config map[string]interface{}
+	role string
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -45,10 +48,11 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "config.yml", "config file (default is $HOME/.haumea.yaml)")
+	rootCmd.PersistentFlags().StringVar(&role, "role", "", "")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
