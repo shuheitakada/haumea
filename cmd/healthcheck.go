@@ -16,11 +16,19 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		server := config[args[0]].(map[string]interface{})[args[1]]
-		targetGroupArn := server.(map[string]interface{})["target_group_arn"]
-		// targets := server.(map[string]interface{})["targets"]
 		client := elbv2.NewClient(role)
-		client.DescribeTargetHealth(targetGroupArn.(string))
+		switch len(args) {
+		case 1:
+			var targetGroupArns []string
+			for _, v := range config[args[0]].(map[string]interface{}) {
+				targetGroupArns = append(targetGroupArns, v.(map[string]interface{})["target_group_arn"].(string))
+			}
+			client.DescribeAllTargetHealth(targetGroupArns)
+		case 2:
+			server := config[args[0]].(map[string]interface{})[args[1]]
+			targetGroupArn := server.(map[string]interface{})["target_group_arn"]
+			client.DescribeTargetHealth(targetGroupArn.(string))
+		}
 	},
 }
 

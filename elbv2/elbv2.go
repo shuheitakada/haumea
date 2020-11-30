@@ -18,11 +18,11 @@ func NewClient(role string) *Client {
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 	var serviceClientValue *elbv2.ELBV2
-	if role != "" {
+	if role == "" {
+		serviceClientValue = elbv2.New(sess)
+	} else {
 		creds := stscreds.NewCredentials(sess, role)
 		serviceClientValue = elbv2.New(sess, &aws.Config{Credentials: creds})
-	} else {
-		serviceClientValue = elbv2.New(sess)
 	}
 	return &Client{svc: serviceClientValue}
 }
@@ -35,4 +35,10 @@ func (client *Client) DescribeTargetHealth(targetGroupArn string) {
 		return
 	}
 	fmt.Println(result)
+}
+
+func (client *Client) DescribeAllTargetHealth(targetGroupArns []string) {
+	for _, targetGroupArn := range targetGroupArns {
+		client.DescribeTargetHealth(targetGroupArn)
+	}
 }
