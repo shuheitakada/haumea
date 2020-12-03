@@ -17,11 +17,20 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		server := config[args[0]].(map[string]interface{})[args[1]]
-		targetGroupArn := server.(map[string]interface{})["target_group_arn"]
-		targets := server.(map[string]interface{})["targets"]
 		client := elbv2.NewClient(role)
-		client.RegisterTargets(targetGroupArn.(string), targets.([]interface{}))
+		switch len(args) {
+		case 1:
+			for _, server := range config[args[0]].(map[string]interface{}) {
+				targetGroupArn := server.(map[string]interface{})["target_group_arn"]
+				targets := server.(map[string]interface{})["targets"]
+				client.RegisterTargets(targetGroupArn.(string), targets.([]interface{}))
+			}
+		case 2:
+			server := config[args[0]].(map[string]interface{})[args[1]]
+			targetGroupArn := server.(map[string]interface{})["target_group_arn"]
+			targets := server.(map[string]interface{})["targets"]
+			client.RegisterTargets(targetGroupArn.(string), targets.([]interface{}))
+		}
 	},
 }
 
