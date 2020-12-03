@@ -16,5 +16,5 @@
 
 /.vscode/
 /log/
+/config/
 __debug_bin
-config.yml
