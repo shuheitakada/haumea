@@ -21,8 +21,8 @@ to quickly create a Cobra application.`,
 		switch len(args) {
 		case 1:
 			var targetGroupArns []string
-			for _, v := range config[args[0]].(map[string]interface{}) {
-				targetGroupArns = append(targetGroupArns, v.(map[string]interface{})["target_group_arn"].(string))
+			for _, server := range config[args[0]].(map[string]interface{}) {
+				targetGroupArns = append(targetGroupArns, server.(map[string]interface{})["target_group_arn"].(string))
 			}
 			client.DescribeAllTargetHealth(targetGroupArns)
 		case 2:
