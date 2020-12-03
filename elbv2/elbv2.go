@@ -44,14 +44,9 @@ func (client *Client) DescribeAllTargetHealth(targetGroupArns []string) {
 }
 
 func (client *Client) RegisterTargets(targetGroupArn string, targets []interface{}) {
-	var targetEC2IDs []*elbv2.TargetDescription
-	for _, target := range targets {
-		targetEC2ID := &elbv2.TargetDescription{Id: aws.String(target.(string))}
-		targetEC2IDs = append(targetEC2IDs, targetEC2ID)
-	}
 	input := &elbv2.RegisterTargetsInput{
 		TargetGroupArn: aws.String(targetGroupArn),
-		Targets: targetEC2IDs,
+		Targets: targetEC2IDs(targets),
 	}
 	result, err := client.svc.RegisterTargets(input)
 	if err != nil {
@@ -62,14 +57,9 @@ func (client *Client) RegisterTargets(targetGroupArn string, targets []interface
 }
 
 func (client *Client) DeregisterTargets(targetGroupArn string, targets []interface{}) {
-	var targetEC2IDs []*elbv2.TargetDescription
-	for _, target := range targets {
-		targetEC2ID := &elbv2.TargetDescription{Id: aws.String(target.(string))}
-		targetEC2IDs = append(targetEC2IDs, targetEC2ID)
-	}
 	input := &elbv2.DeregisterTargetsInput{
 		TargetGroupArn: aws.String(targetGroupArn),
-		Targets: targetEC2IDs,
+		Targets: targetEC2IDs(targets),
 	}
 	result, err := client.svc.DeregisterTargets(input)
 	if err != nil {
@@ -77,4 +67,12 @@ func (client *Client) DeregisterTargets(targetGroupArn string, targets []interfa
 		return
 	}
 	fmt.Println(result)
+}
+
+func targetEC2IDs(targets []interface{}) (result []*elbv2.TargetDescription) {
+	for _, target := range targets {
+		targetEC2ID := &elbv2.TargetDescription{Id: aws.String(target.(string))}
+		result = append(result, targetEC2ID)
+	}
+	return
 }
