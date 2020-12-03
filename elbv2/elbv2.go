@@ -60,3 +60,21 @@ func (client *Client) RegisterTargets(targetGroupArn string, targets []interface
 	}
 	fmt.Println(result)
 }
+
+func (client *Client) DeregisterTargets(targetGroupArn string, targets []interface{}) {
+	var targetEC2IDs []*elbv2.TargetDescription
+	for _, target := range targets {
+		targetEC2ID := &elbv2.TargetDescription{Id: aws.String(target.(string))}
+		targetEC2IDs = append(targetEC2IDs, targetEC2ID)
+	}
+	input := &elbv2.DeregisterTargetsInput{
+		TargetGroupArn: aws.String(targetGroupArn),
+		Targets: targetEC2IDs,
+	}
+	result, err := client.svc.DeregisterTargets(input)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println(result)
+}

@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/shuheitakada/haumea/elbv2"
 	"github.com/spf13/cobra"
 )
 
@@ -17,7 +16,11 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("deregister called")
+		server := config[args[0]].(map[string]interface{})[args[1]]
+		targetGroupArn := server.(map[string]interface{})["target_group_arn"]
+		targets := server.(map[string]interface{})["targets"]
+		client := elbv2.NewClient(role)
+		client.DeregisterTargets(targetGroupArn.(string), targets.([]interface{}))
 	},
 }
 
