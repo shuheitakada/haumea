@@ -9,7 +9,7 @@ go get github.com/shuheitakada/haumea
 
 # Usage
 ## config.yml
-Create `config.yml`. An example is below.
+Create `~/.haumea.yml`. An example is below.
 ```
 example_1:
   web:
@@ -36,38 +36,38 @@ example_2:
 ## register
 To register targets in the target group, run the following command.
 ```
-haumea register example_1 web --config ./config.yml
-haumea register example_1 admin --config ./config.yml
-haumea register example_1 api --config ./config.yml
+haumea register example_1 web
+haumea register example_1 admin
+haumea register example_1 api
 ```
 
 The above example is the same as the command below.
 ```
-haumea register example_1 --config ./config.yml
+haumea register example_1
 ```
 
 ## deregister
 To deregister targets in the target group, run the following command.
 ```
-haumea deregister example_2 web --config ./config.yml
-haumea deregister example_2 admin --config ./config.yml
-haumea deregister example_2 api --config ./config.yml
+haumea deregister example_2 web
+haumea deregister example_2 admin
+haumea deregister example_2 api
 ```
 
 The above example is the same as the command below.
 ```
-haumea deregister example_2 --config ./config.yml
+haumea deregister example_2
 ```
 
 ## healthcheck
 You can check health of the specified targets
 ```
-haumea healthcheck example_1 web --config ./config.yml
+haumea healthcheck example_1 web
 ```
 
 or all of your targets.
 ```
-haumea healthcheck example_1 --config ./config.yml
+haumea healthcheck example_1
 ```
 # License
 haumea is released under the Apache 2.0 license. See [LICENSE](https://github.com/shuheitakada/haumea/blob/main/LICENSE)
