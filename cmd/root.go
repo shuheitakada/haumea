@@ -19,13 +19,7 @@ var (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "haumea",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "CLI for easily switching servers in AWS target groups.",
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
@@ -48,7 +42,7 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.haumea.yml)")
-	rootCmd.PersistentFlags().StringVar(&role, "role", "", "")
+	rootCmd.PersistentFlags().StringVar(&role, "role", "", "switch to the specified AWS role")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
