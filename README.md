@@ -70,4 +70,4 @@ or all of your targets.
 haumea healthcheck example_1 --config ./config.yml
 ```
 # License
-
+haumea is released under the Apache 2.0 license. See [LICENSE](https://github.com/shuheitakada/haumea/blob/main/LICENSE)
