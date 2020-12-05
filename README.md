@@ -11,7 +11,7 @@ go get github.com/shuheitakada/haumea
 ## Configuring the AWS CLI
 This package uses the AWS SDK, so you need to configure the AWS CLI. See [Quick configuration with aws configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html).
 
-## config.yml
+## .haumea.yml
 Create `~/.haumea.yml`. An example is below.
 ```
 example_1:
